@@ -7,7 +7,7 @@ Profs. Andrew Jordan and Irfan Siddiqi recently published a textbook, Quantum Me
 
 https://doi.org/10.1017/9781009103909
 
-The codes included herein can be used to reproduce Figs. XX and XX, or variants on them. The first (current) version of this code has equations of motion hard-coded for the examples shown there, and in prior published works on the topic. Look for an update soon with added functionality to apply the basic integration tools to a wider range of examples. 
+The codes included herein can be used to reproduce Figs. XX and XX, or variants on them. The current v1 of this code has equations of motion hard-coded for the examples shown there, and in prior published works on the topic. Look for an update soon with added functionality to apply the basic integration tools to a wider range of examples, along with some refinements for speed and ease of use.
 
 The original published research works on which these codes and figures are based are:
 
