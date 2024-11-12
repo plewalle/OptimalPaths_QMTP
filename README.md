@@ -1,6 +1,7 @@
 # OptimalPaths_QMTP
 This is a code sample detailing the creation of certain figures appearing in Jordan and Siddiqi's recent textbook on Quantum Measurement. 
-In particular, these codes execute batch integration and illustration of quantum trajectories conditioned on extremal-probability sequences of continuous readout events.
+In particular, these codes execute batch integration and illustration of quantum trajectories conditioned on extremal-probability sequences of continuous readout events. 
+The current version (v1, uploaded November 2024) has been debugged in Python 3.9.7, with dependencies on numpy, scipy, and matplotlib.pyplot.
 
 Profs. Andrew Jordan and Irfan Siddiqi recently published a textbook, Quantum Measurement: Theory and Practice (QMTP, Cambridge University Press, 2024). 
 
