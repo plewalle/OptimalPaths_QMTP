@@ -1,14 +1,17 @@
 '''
 Philippe Lewalle
-AN Jordan Group at University of Rochester (2014-2021)
+AN Jordan Group at University of Rochester (2015-2021)
 KB Whaley Group at UC Berkeley (2021-current)
 
-Running MLP Plots for Jordan & Siddiqi Book
-August & September 2022
+Running MLP Plots for Jordan & Siddiqi Quantum Measurement Book.
+Code Written August & September 2022, Revised November & December 2024,
+based on earlier codes from projects completed as a graduate student in AN Jordan's group: 
+    arXiv:1612.07861, arXiv:1612.03189, arXiv:1803.07615
+
 '''
 
 import numpy as np
-import Andrew_Irfan_MLP_aux as AUX
+import QMTP_MLP_aux as AUX
 
 # Divergence of the co-states for extremely rare readout sequences / post-selection boundary conditions is typical.
 # The integrator used here is built to identify and remove such diverging paths from the final calculations / plots.  
@@ -17,7 +20,7 @@ np.seterr(over='ignore',invalid='ignore',divide='ignore') # consequently the int
 # Langrangian Manifold: Driven Homodyne Flourescence
 
 x0 = 0.0; z0 = 1.0; Qi = np.asarray([x0,z0]) # initial state
-gam = 1.0; om = 2.0; eta = 0.5; eqargs = [gam,om,eta] # constants: decay rate, Rabi drive rate, measurement efficiency
+gam = 1.0; om = 2.0; eta = 0.5; eqargs = np.asarray([gam,om,eta]) # constants: decay rate, Rabi drive rate, measurement efficiency
 
 Tf = 2.5
 
@@ -39,7 +42,7 @@ off = 1.0 # base measurement strengths
 amp = 0.96 # amplitude of the z-measurement kick (tau ~ off - amp). 
 # Use any value in [0,1), where 0 is trivially integrable, and a transition to chaos occurs as amp increases
 sig = 0.01 # width of the z-measurement kick
-eqargs_xz = [off, amp, sig] 
+eqargs_xz = np.asarray([off, amp, sig]) 
 
 Tf = 100.0 # final integration time
 
