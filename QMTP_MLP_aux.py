@@ -3,7 +3,7 @@ Philippe Lewalle
 AN Jordan Group at University of Rochester (2014-2021)
 KB Whaley Group at UC Berkeley (2021-current)
 
-August 2022
+August & September 2022, with revision November & December 2024
 
 Python 3 code update: Multipath Manifolds for Jordan and Siddiqi textbook on Quantum Measurement.
 See Phys. Rev. A 96, 053807 (2017) for the original.
@@ -19,7 +19,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from matplotlib import pyplot as pl
 import matplotlib.cm as cm # color map in plots
-import cmocean as cmo
+import numba as nb
 
 '''
 CONTENTS:
@@ -28,15 +28,15 @@ CONTENTS:
     a. RK4: Integration Debugging / Batch Divergence Detection ...........  049
     b. RK4 x DOP 853: High-Order Fine Tuning .............................  126
 
-2. Equations of Motion ...................................................  227
-    a. Driven Decaying Qubit .............................................  231
-    b. Kicked XZ Measurement .............................................  287
+2. Equations of Motion ...................................................  226
+    a. Driven Decaying Qubit .............................................  230
+    b. Kicked XZ Measurement .............................................  286
 
-3. 2D/4D Manifold Integrator and Plotter .................................  373
+3. 2D/4D Manifold Integrator and Plotter .................................  383
 
-4. 1D/2D Stroboscopic Phase Portrait Plotter .............................  448 
-    a. Integration and Lyapunov Exponents ................................  452
-    b. Plotting ..........................................................  488
+4. 1D/2D Stroboscopic Phase Portrait Plotter .............................  458 
+    a. Integration and Lyapunov Exponents ................................  462
+    b. Plotting ..........................................................  598
     
 '''
 
@@ -286,12 +286,16 @@ def HomF_OP_H(Q,eqargs):
 ''' bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 Pure State Joint XZ Measurement: XZ Bloch Great Circle '''
 
+@nb.njit(inline='always')
 def a_xz(th,tx,tz):
     return 0.5*(np.sin(th)**2/tz+np.cos(th)**2/tx)
+@nb.njit(inline='always')
 def ad_xz(th,tx,tz):
     return ((tx - tz)*np.cos(th)*np.sin(th))/(tx*tz)
+@nb.njit(inline='always')
 def b_xz(th,tx,tz):
     return (1.0/tx-1.0/tz)*np.sin(th)*np.cos(th)
+@nb.njit(inline='always')
 def bd_xz(th,tx,tz):
     return -(((tx - tz)*np.cos(2*th))/(tx*tz))
 
@@ -310,16 +314,20 @@ def tauZ(t,off,amp,sig): # for a float t
     return off-np.sum(g) # amp must be between zero (weak) and one (projective)
 
 # readout
+@nb.njit(inline='always')
 def roz(th,p):
     return np.cos(th)-p*np.sin(th)
+@nb.njit(inline='always')
 def rox(th,p):
     return np.sin(th)+p*np.cos(th)
 
 # equations of motion
+@nb.njit(inline='always')
 def fxz1_arr(th,p,tx,tz): # theta dot
     a = a_xz(th,tx,tz)
     b = b_xz(th,tx,tz)
     return 2*a*p+b
+@nb.njit(inline='always')
 def fxz2_arr(th,p,tx,tz):
     ad = ad_xz(th,tx,tz)
     bd = bd_xz(th,tx,tz)
@@ -351,11 +359,13 @@ def QDOT_XZ_EQMO(t,q,eqargs_xz):
     return qdot
 
 # stochastic energy
+@nb.njit(inline='always')
 def Earr(th,p,tx,tz):
     a = a_xz(th,tx,tz)
     b = b_xz(th,tx,tz)
     N = a.size  
     return a*(p**2-np.ones(N))+b*p
+@nb.njit(inline='always')
 def Emat(th,p,tx,tz):
     a = a_xz(th,tx,tz)
     b = b_xz(th,tx,tz)
@@ -364,6 +374,7 @@ def Emat(th,p,tx,tz):
     return a*(p**2-np.ones((N,M)))+b*p
     
 # stochastic action integrand
+@nb.njit(inline='always')
 def Sd_arr(th,p,tx,tz):
     return Earr(th,p,tx,tz) - p*fxz1_arr(th,p,tx,tz)
 
@@ -497,14 +508,14 @@ def StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,imgname)
         for n in range(0,NT): # assign the actual CMYK values to each point below
             if LYAP[n,m] <= 0.0: # converging trajectories
                 if LYAP[n,m] >= LydMin:
-                    c2[n,m,:] = cmo.cm.ice(LYAP[n,m]/LydMin)
+                    c2[n,m,:] = cm.Blues_r(LYAP[n,m]/LydMin)
                 else:
-                    c2[n,m,:] = cmo.cm.ice(1)
+                    c2[n,m,:] = cm.Blues_r(1)
             else: # diverging trajectories
                 if LYAP[n,m] <= LydMax:
-                    c2[n,m,:] = cmo.cm.matter(1.0-LYAP[n,m]/LydMax)
+                    c2[n,m,:] = cm.Reds_r(LYAP[n,m]/LydMax)
                 else:
-                    c2[n,m,:] = cmo.cm.matter(0)
+                    c2[n,m,:] = cm.Reds_r(1)
     # main plotting
     fig0 = pl.figure(figsize=(5.0,3.5))
     ax0 = fig0.add_subplot(111)
@@ -523,7 +534,7 @@ def StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,imgname)
     fig0.savefig('XZK_StroboPS'+imgname+'.png',dpi = 300)
     ax0.cla(); fig0.clf()
     # colorbar plotting
-    fig1 = pl.figure(figsize=(1.0,4))
+    fig1 = pl.figure(figsize=(1.1,4))
     ax1 = fig1.add_subplot(111)
     cbar = np.zeros((2,100))
     cbar[0,:] = np.linspace(LydMin,0.0,100)
@@ -534,10 +545,11 @@ def StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,imgname)
             bottom='off',      # ticks along the bottom edge are off
             top='off',         # ticks along the top edge are off
             labelbottom='off') # labels along the bottom edge are off
-    ax1.imshow(cbar.T,cmap=cmo.cm.ice,origin='upper',aspect=7.5/(np.absolute(LydMin)),extent=(0,1,LydMin,0))
+    ax1.imshow(cbar.T,cmap='Blues_r',origin='upper',aspect=7.5/(np.absolute(LydMin)),extent=(0,1,LydMin,0))
+    fig1.tight_layout()
     fig1.savefig('LYAP-minus_CBAR_'+imgname+'.pdf')#,dpi = 300)
     ax1.cla(); fig1.clf()
-    fig1 = pl.figure(figsize=(1.0,4))
+    fig1 = pl.figure(figsize=(1.1,4))
     ax1 = fig1.add_subplot(111)
     cbar = np.zeros((2,100))
     cbar[0,:] = np.linspace(LydMax,0.0,100)
@@ -548,6 +560,7 @@ def StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,imgname)
             bottom='off',      # ticks along the bottom edge are off
             top='off',         # ticks along the top edge are off
             labelbottom='off') # labels along the bottom edge are off
-    ax1.imshow(cbar.T,cmap=cmo.cm.matter,origin='lower',aspect=7.5/(np.absolute(LydMax)),extent=(0,1,0,LydMax))
+    ax1.imshow(cbar.T,cmap='Reds',origin='lower',aspect=7.5/(np.absolute(LydMax)),extent=(0,1,0,LydMax))
+    fig1.tight_layout()
     fig1.savefig('LYAP-plus_CBAR_'+imgname+'.pdf')#,dpi = 300)
     ax1.cla(); fig1.clf()
