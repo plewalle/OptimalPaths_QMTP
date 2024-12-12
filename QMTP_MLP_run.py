@@ -25,18 +25,22 @@ gam = 1.0; om = 2.0; eta = 0.5; eqargs = np.asarray([gam,om,eta]) # constants: d
 Tf = 2.5
 
 # range of initial "momenta", and momentum mesh resolution
-pxmin = -5.0; pxmax = 5.0; Nx = 150 #400 # use for dense sampling
-pzmin = -5.0; pzmax = 5.0; Nz = 150 #400
+pxmin = -5.0; pxmax = 5.0; Nx = 150 
+pzmin = -5.0; pzmax = 5.0; Nz = 150 
 Pmesh = np.asarray([[pxmin,pxmax,Nx],[pzmin,pzmax,Nz]])
 
 AUX.LM_4DPS_BlochPlotter(Qi,Tf,Pmesh,eqargs,'_sparse_QMTheoryPractice')
+
+#Nx = 400 # suggested for dense sampling
+#Nz = 400
+#Pmesh = np.asarray([[pxmin,pxmax,Nx],[pzmin,pzmax,Nz]])
 #AUX.LM_4DPS_BlochPlotter(Qi,Tf,Pmesh,eqargs,'_dense_QMTheoryPractice')
 
 # Stroboscopic Phase Portrait: X Measurement with kicked Z Measurement
 
 prange = np.pi+0.5 # cut the mesh a bit above the first large resonance
-Np = 20 #50 #use larger values for dense mesh
-Nth = 20 #50
+Np = 20 
+Nth = 20 
 
 off = 1.0 # base measurement strengths
 amp = 0.96 # amplitude of the z-measurement kick (tau ~ off - amp). 
@@ -52,4 +56,7 @@ dt_comp_factor = 1000
 dth0 = 0.01
 
 AUX.StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,'_sparse_QMTheoryPractice_k96_T100_N20')
+
+#Np = 50 # suggested for dense mesh
+#Nth = 50
 #AUX.StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,'_dense_QMTheoryPractice_k96_T100_N50')

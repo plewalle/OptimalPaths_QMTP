@@ -14,12 +14,12 @@ See Phys. Rev. A 98, 012141 (2018) for the original.
 This file contains the main computational methods, but does not execute them. 
 It is paired with a script which loads and runs these methods for specific values.
 '''
-
-import numpy as np
-from scipy.integrate import solve_ivp
-from matplotlib import pyplot as pl
+# code tested in python 3.9.20; package versions this code was last debugged in are also listed below
+import numpy as np #                                               numpy 1.26.4
+from scipy.integrate import solve_ivp #                            scipy 1.10.0
+from matplotlib import pyplot as pl #                          matplotlib 3.9.2
 import matplotlib.cm as cm # color map in plots
-import numba as nb
+import numba as nb #                                               numba 0.60.0
 
 '''
 CONTENTS:
@@ -448,7 +448,7 @@ def LM_4DPS_BlochPlotter(Qi,Tf,Pmesh,eqargs,img_name):
             which='both',      # both major and minor ticks are affected
             bottom='off',      # ticks along the bottom edge are off
             top='off',         # ticks along the top edge are off
-            labelbottom='off') # labels along the bottom edge are off
+            labelbottom=False) # labels along the bottom edge are off
     ax1.imshow(cbar.T,cmap='viridis',origin='lower',aspect=15.0/(Emax-Emin),extent=(0,1,Emin,Emax))
     fig1.savefig('Esto_CBAR_'+img_name+'.pdf')#,dpi = 300)
     ax1.cla(); fig1.clf()
@@ -534,7 +534,7 @@ def StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,imgname)
     fig0.savefig('XZK_StroboPS'+imgname+'.png',dpi = 300)
     ax0.cla(); fig0.clf()
     # colorbar plotting
-    fig1 = pl.figure(figsize=(1.1,4))
+    fig1 = pl.figure(figsize=(1.3,4))
     ax1 = fig1.add_subplot(111)
     cbar = np.zeros((2,100))
     cbar[0,:] = np.linspace(LydMin,0.0,100)
@@ -544,12 +544,12 @@ def StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,imgname)
             which='both',      # both major and minor ticks are affected
             bottom='off',      # ticks along the bottom edge are off
             top='off',         # ticks along the top edge are off
-            labelbottom='off') # labels along the bottom edge are off
+            labelbottom=False) # labels along the bottom edge are off
     ax1.imshow(cbar.T,cmap='Blues_r',origin='upper',aspect=7.5/(np.absolute(LydMin)),extent=(0,1,LydMin,0))
     fig1.tight_layout()
     fig1.savefig('LYAP-minus_CBAR_'+imgname+'.pdf')#,dpi = 300)
     ax1.cla(); fig1.clf()
-    fig1 = pl.figure(figsize=(1.1,4))
+    fig1 = pl.figure(figsize=(1.3,4))
     ax1 = fig1.add_subplot(111)
     cbar = np.zeros((2,100))
     cbar[0,:] = np.linspace(LydMax,0.0,100)
@@ -559,7 +559,7 @@ def StroboPS_XZK(Nth,Np,prange,Tf,dt_plot,dt_comp_factor,dth0,eqargs_xz,imgname)
             which='both',      # both major and minor ticks are affected
             bottom='off',      # ticks along the bottom edge are off
             top='off',         # ticks along the top edge are off
-            labelbottom='off') # labels along the bottom edge are off
+            labelbottom=False) # labels along the bottom edge are off
     ax1.imshow(cbar.T,cmap='Reds',origin='lower',aspect=7.5/(np.absolute(LydMax)),extent=(0,1,0,LydMax))
     fig1.tight_layout()
     fig1.savefig('LYAP-plus_CBAR_'+imgname+'.pdf')#,dpi = 300)
