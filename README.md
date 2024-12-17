@@ -11,8 +11,6 @@ The codes included herein can be used to reproduce Figs. 9.2 and 9.10 of the tex
 
 Specifically: QMTP_MLP_run.py is associated with Fig. 9.2, and QMTP_SQT_run.py is associated with Fig. 9.10. The other auxiliary codes included here define various integration, simulation, and/or plotting functions that are used in the run scripts.   
 
-The current v1 of this code has Kraus Operators and equations of motion hard-coded for the examples shown in the textbook and in prior published works on the topic. Look for an update soon with added functionality to apply the basic integration tools to a wider range of examples, along with some refinements for speed and ease of use.
-
 The original published research works on which Fig. 9.2 and the associated codes are based are:
 
 [1] Philippe Lewalle, Areeya Chantasri, and Andrew N. Jordan. Prediction and characterization of multiple extremal paths in continuously monitored qubits. Phys. Rev. A 95 042126 (2017) or arxiv:1612.07861.
