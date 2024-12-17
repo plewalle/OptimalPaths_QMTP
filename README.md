@@ -1,7 +1,7 @@
 # OptimalPaths_QMTP
 This is a code sample detailing the creation of certain figures appearing in Jordan and Siddiqi's recent textbook on Quantum Measurement. 
 In particular, these codes execute simulation of quantum trajectories, and batch integration and illustration of quantum trajectories conditioned on extremal-probability sequences of continuous readout events. 
-The current version (v1, uploaded November 2024) has been debugged in Python 3.9.7, with dependencies on numpy, scipy, and matplotlib.pyplot.
+The current version (v1, uploaded November 2024) has been debugged in Python 3.9.20, with dependencies on numpy, scipy, and matplotlib.pyplot.
 
 Profs. Andrew Jordan and Irfan Siddiqi recently published a textbook, Quantum Measurement: Theory and Practice (QMTP, Cambridge University Press, 2024). 
 
@@ -9,7 +9,7 @@ https://doi.org/10.1017/9781009103909
 
 The codes included herein can be used to reproduce Figs. 9.2 and 9.10 of the text, or variants on them. 
 
-Specifically: QMTP_MLP_aux.py and QMTP_MLP_run.py are associated with Fig. 9.2, and QMTP_SQT_aux.py and QMTP_SQT_run.py are associated with Fig. 9.10.  
+Specifically: QMTP_MLP_run.py is associated with Fig. 9.2, and QMTP_SQT_run.py is associated with Fig. 9.10. The other auxiliary codes included here define various integration, simulation, and/or plotting functions that are used in the run scripts.   
 
 The current v1 of this code has Kraus Operators and equations of motion hard-coded for the examples shown in the textbook and in prior published works on the topic. Look for an update soon with added functionality to apply the basic integration tools to a wider range of examples, along with some refinements for speed and ease of use.
 
