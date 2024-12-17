@@ -4,13 +4,16 @@ AN Jordan Group at University of Rochester (2015-2021)
 KB Whaley Group at UC Berkeley (2021-current)
 
 Running MLP Plots for Jordan & Siddiqi Quantum Measurement Book.
+This script creates figures like Fig. 9.2 of the textbook.
+
 Code Written August & September 2022, Revised November & December 2024,
 based on earlier codes from projects completed as a graduate student in AN Jordan's group: 
     arXiv:1612.07861, arXiv:1612.03189, arXiv:1803.07615
 
 '''
-
-import numpy as np
+# code tested in python 3.9.20 
+# package versions this code was last debugged in are also listed below
+import numpy as np #                                               numpy 1.26.4
 import QMTP_MLP_aux as AUX
 
 # Divergence of the co-states for extremely rare readout sequences / post-selection boundary conditions is typical.
