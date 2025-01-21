@@ -7,7 +7,7 @@ Profs. Andrew Jordan and Irfan Siddiqi recently published a textbook, Quantum Me
 
 https://doi.org/10.1017/9781009103909
 
-The codes included herein can be used to reproduce Figs. 9.2 and 9.10 of the text, or variants on them. 
+The codes included herein can be used to reproduce Figs. 9.2 and 9.10 of the text, or variants thereof.
 
 Specifically: QMTP_MLP_run.py is associated with Fig. 9.2, and QMTP_SQT_run.py is associated with Fig. 9.10. The other auxiliary codes included here define various integration, simulation, and/or plotting functions that are used in the run scripts.   
 
