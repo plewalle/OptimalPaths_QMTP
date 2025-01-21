@@ -7,7 +7,13 @@ Profs. Andrew Jordan and Irfan Siddiqi recently published a textbook, Quantum Me
 
 https://doi.org/10.1017/9781009103909
 
-The codes included herein can be used to reproduce Figs. 9.2 and 9.10 of the text, or variants thereof.
+The codes included herein can be used to reproduce Figs. 9.2 and 9.10 of the text, or variants thereof. For example, continuous inefficient homodyne monitoring of a qubit's spontaneous emission leads to the following Lagrangian manifold evolution (compare with Fig. 9.2):
+
+<img src="./imgs_out/LM_webani.gif?raw=true" width="720px">
+
+The onset of chaos in the optimal paths of a qubit subject to simultaneous monitoring of two non-commuting observables can be observed from the following stroboscopic phase portraits (compare with Fig. 9.10):
+
+<img src="./imgs_out/SCPS_webani.gif?raw=true" width="720px">
 
 Specifically: QMTP_MLP_run.py is associated with Fig. 9.2, and QMTP_SQT_run.py is associated with Fig. 9.10. The other auxiliary codes included here define various integration, simulation, and/or plotting functions that are used in the run scripts.   
 
